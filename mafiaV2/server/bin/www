@@ -8,8 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 var server = require('http').createServer(app);
-var createNewGame = require('./connection/newGame');
-var joinGame;
+const { Connection } = require('../mongo');
 
 /**
  * Get port from environment and store in Express.
@@ -91,6 +90,11 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ * Connect to MongoDB
+ */
+Connection.connectToMongo();
 
 /** 
  * Socket io

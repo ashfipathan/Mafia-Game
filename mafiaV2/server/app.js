@@ -6,6 +6,7 @@ var logger = require('morgan');
 var socket_io = require('socket.io');
 const cors = require('cors');
 const whitelist = ['http://localhost:9000'];
+// const mongoUtil = require('./mongo');
 
 const corsOptions = {
   credentials: true, 
@@ -65,6 +66,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// // Initialize Database connection
+// mongoUtil.connectToServer();
 
 // Socket.io events
 io.on('connection', function(socket) {
