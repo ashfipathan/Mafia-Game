@@ -32,6 +32,7 @@ app.io = io;
 app.set('socket.io', io);
 var newGame = require('./bin/connection/newGame');
 var joinGame = require('./bin/connection/joinGame');
+var disconnect = require('./bin/connection/disconnectGame');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -80,13 +81,18 @@ io.on('connection', function(socket) {
   socket.on('join game', function(data) {
     console.log("Joining game.");
     console.log(data);
-    joinGame.join(socket, data.username, data.lobbyCode);
+    joinGame.join(socket, data.username, data.clientID, data.lobbyCode);
   });
   
 
   socket.on('new game', function(data) {
     console.log(data);
-    newGame.start(socket);
+    newGame.start(socket, data.username, data.clientID);
+  });
+
+  socket.on('disconnectGame', function(data) {
+    console.log(data);
+    disconnect.leave(socket, data.clientID, data.lobbyCode);
   });
 
 });

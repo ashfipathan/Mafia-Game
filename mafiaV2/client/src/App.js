@@ -1,10 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MainMenu from './components/MainMenu'
+import ComponentController from './components/ComponentController'
 import { v4 as uuidv4 } from 'uuid';
-import socket from './connection';
-import SocketContext from './socketContext';
 
 function App() {
   return (
@@ -14,15 +12,10 @@ function App() {
         <p>
           Welcome to Mafia.
         </p>
-         <MainMenu clientID={uuidv4()} />
+         <ComponentController clientID={uuidv4()} />
       </header>
     </div>
   );
 }
 
-
-
- //<SocketContext.Provider value={socket}>
-//  <MainMenu clientID={uuidv4()} />
-//  </SocketContext.Provider>
 export default App;
