@@ -8,8 +8,11 @@ class GameLobby extends React.Component {
         playerCount : this.props.gameObject.playerCount,
         gameObject : this.props.gameObject,
         userArr : [],
-        hostName : this.props.gameObject.host.hostUsername
+        hostName : this.props.gameObject.host.hostUsername,
+        hostID : this.props.gameObject.host.hostID
       };
+
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -35,22 +38,39 @@ class GameLobby extends React.Component {
 
     componentWillUnmount() {
     }
+
+    handleSubmit(event) {
+      console.log("Start game...");
+      let data = {lobbyCode : this.props.lobbyCode};
+      console.log(data);
+      socket.emit('start game', data);
+      event.preventDefault();
+    }
   
     render() {
 
       const userList = this.state.userArr.map(item => 
-        (item.name !== this.state.hostName ? <li key={item.key}>{item.name}</li> : <li key={item.key}>{item.name} (Host)</li>));
-
-      //console.log(userList);
-    
-      return( 
-        <div> 
-          <h2>Welcome: {this.props.username}</h2>
-          <p>There are {this.state.playerCount} players in the lobby.</p>
-          <p>Currently in lobby: {this.props.lobbyCode}</p>
-          <ul>{userList}</ul>
-        </div>
-      )
+        (item.key !== this.state.hostID ? <li key={item.key}>{item.name}</li> : <li key={item.key}>{item.name} (Host)</li>));
+      
+      if(this.state.hostID === this.props.clientID) {
+        return( 
+          <div> 
+            <h2>Welcome: {this.props.username}</h2>
+            <p>There are {this.state.playerCount} players in the lobby.</p>
+            <p>Currently in lobby: {this.props.lobbyCode}</p>
+            <ul>{userList}</ul>
+            <form onSubmit={this.handleSubmit}> <button type="submit">Do the thing</button> </form> 
+          </div>)
+      }
+      else {
+        return( 
+          <div> 
+            <h2>Welcome: {this.props.username}</h2>
+            <p>There are {this.state.playerCount} players in the lobby.</p>
+            <p>Currently in lobby: {this.props.lobbyCode}</p>
+            <ul>{userList}</ul>
+          </div>)
+      }
     };
   }
 

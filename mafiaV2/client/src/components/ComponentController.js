@@ -22,6 +22,7 @@ class ComponentController extends React.Component {
         this.state = {status : mainMenuStatus, gameObject : {}, username : '', lobbyCode : ''};
         this.handleLobbyCodeChange = this.handleLobbyCodeChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.componentCleanup = this.componentCleanup.bind(this);
         socket.clientID = this.props.clientID;
     }
 
@@ -44,6 +45,7 @@ class ComponentController extends React.Component {
         socket.on('gameObject', (newGameObject) => {
           this.setState({status : newGameObject.status, gameObject : newGameObject, lobbyCode : newGameObject.lobbyCode});
           socket.lobbyCode = newGameObject.lobbyCode;
+          console.log(newGameObject);
         });
 
         socket.on('host left', (data) => {
@@ -51,12 +53,17 @@ class ComponentController extends React.Component {
             this.setState({status : mainMenuStatus});
         });
 
+        socket.on('notEnoughPlayer', (data) => {
+            console.log(data);
+            this.setState({status : lobbyStatus});
+        });
+
         // Listener to notify server on disconnect
         window.addEventListener('beforeunload', this.componentCleanup);
     }
 
     componentCleanup() {
-        var data = {clientID : socket.clientID, lobbyCode : socket.lobbyCode};
+        var data = {clientID : this.props.clientID, lobbyCode : this.state.lobbyCode};
         console.log(data);
         socket.emit('disconnectGame', data);
     }

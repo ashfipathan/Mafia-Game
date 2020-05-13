@@ -33,6 +33,7 @@ app.set('socket.io', io);
 var newGame = require('./bin/connection/newGame');
 var joinGame = require('./bin/connection/joinGame');
 var disconnect = require('./bin/connection/disconnectGame');
+var game = require('./bin/Game/game');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -91,8 +92,14 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnectGame', function(data) {
-    console.log(data);
-    disconnect.leave(socket, data.clientID, data.lobbyCode);
+    if (data.lobbyCode != undefined) {
+      disconnect.leave(socket, data.clientID, data.lobbyCode);
+    }
+  });
+
+  socket.on('start game', function(data) {
+    console.log("Starting game: " + data.lobbyCode);
+    game.start(socket, data.lobbyCode);
   });
 
 });

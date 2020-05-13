@@ -26,10 +26,13 @@ module.exports =  {
          status: "lobby",
          users: { [clientID] : username},
          host : { hostID : clientID, hostUsername : username},
+         mafiaIDs : [],
+         doctorIDs : [],
+         copIDs : [],
          playerCount : 1,
-         mafia_num : 1,
-         doctor_num : 1,
-         cop_num : 1,
+         mafiaCount : 1,
+         doctorCount : 1,
+         copCount : 1,
          roundTimer: 300
       }
 
