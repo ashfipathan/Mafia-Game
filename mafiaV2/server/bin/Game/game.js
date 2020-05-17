@@ -57,6 +57,7 @@ function assignRoles (users, mafiaCount, doctorCount, copCount) {
     return roles;
 }
 
+
 module.exports =  {
    start : function(socket, lobbyCode) {
    
@@ -94,6 +95,10 @@ module.exports =  {
         });;
 
         socket.nsp.to(lobbyCode).emit('gameObject', gameObject);
+        
+        // Set up Round Data
+        
+        
       });
    }
 }

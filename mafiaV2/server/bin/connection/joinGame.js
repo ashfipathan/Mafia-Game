@@ -34,6 +34,7 @@ module.exports =  {
          });;
 
          socket.nsp.to(lobbyCode).emit('gameObject', gameObject);
+         socket.nsp.to(lobbyCode).emit('player joined', gameObject);
       });
    }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import socket from '../connection';
+import socket from '../../connection';
+import './gameLobby.css';
 
 class GameLobby extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class GameLobby extends React.Component {
 
 
       // Set up a listener for incoming/disonnecting players
-      socket.on('gameObject', (newGameObject) => {
+      socket.on('player joined', (newGameObject) => {
         var userArr = [];
         Object.keys(newGameObject.users).forEach(function(key) {
           userArr.push({'name' : newGameObject.users[key], 'key' : key});
@@ -54,7 +55,7 @@ class GameLobby extends React.Component {
       
       if(this.state.hostID === this.props.clientID) {
         return( 
-          <div> 
+          <div className="App"> 
             <h2>Welcome: {this.props.username}</h2>
             <p>There are {this.state.playerCount} players in the lobby.</p>
             <p>Currently in lobby: {this.props.lobbyCode}</p>

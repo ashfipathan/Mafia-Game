@@ -1,5 +1,7 @@
 import React from 'react';
-import socket from '../connection';
+import socket from '../../connection';
+import logo from './logo.svg';
+import './mainMenu.css';
 
 class MainMenu extends React.Component {
     constructor(props) {
@@ -42,19 +44,27 @@ class MainMenu extends React.Component {
     render() {
       
         return (
-          <form onSubmit={this.handleSubmit}>
-            <label>
-             Username:
-             <input type="text" value={this.props.username} onChange={this.handleChangeUsername} />
-            </label>
-            <br></br>
-            <label>
-              Lobby Code:
-              <input type="text" value={this.props.lobbyCode} onChange={this.handleChangeLobbyCode} />
-            </label>
-            <p> Leave Lobby Code empty to create a new game.</p>
-            <input type="submit" value="Submit" />
-          </form>
+          <div className="App-header">
+            <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>
+              Welcome to Mafia.
+            </h2>
+            <form onSubmit={this.handleSubmit}>
+              <label>
+              Username:
+              <input type="text" value={this.props.username} onChange={this.handleChangeUsername} />
+              </label>
+              <br></br>
+              <label>
+                Lobby Code:
+                <input type="text" value={this.props.lobbyCode} onChange={this.handleChangeLobbyCode} />
+              </label>
+              <p> Leave Lobby Code empty to create a new game.</p>
+              <input type="submit" value="Submit" />
+            </form>
+            </header>
+          </div>
         ) 
     };
   }

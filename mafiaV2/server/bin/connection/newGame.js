@@ -33,7 +33,17 @@ module.exports =  {
          mafiaCount : 1,
          doctorCount : 1,
          copCount : 1,
-         roundTimer: 300
+         roundTimer: 120,
+         roundData : {
+            status : '',
+            alive : [],
+            dead : [],
+            killed : '',
+            saved : '',
+            voteOutcome : '',
+            winner : '',
+            roundNumber : ''
+         }
       }
 
 

@@ -2,8 +2,9 @@ import React from 'react';
 import socket from '../connection';
 
 // Import components
-import GameLobby from './GameLobby';
-import MainMenu from './MainMenu';
+import GameLobby from './GameLobby/GameLobby';
+import MainMenu from './MainMenu/MainMenu';
+import GameScreen from './GameScreen/GameScreen';
 
 // Constants
 const mainMenuStatus = 'MainMenu';
@@ -89,7 +90,7 @@ class ComponentController extends React.Component {
         } 
         else if (this.state.status === gameStatus) {
             return (
-                <h2>Game Started ;)</h2>
+                <GameScreen gameObject={gameObject} clientID={this.props.clientID} />
             );
         }
     };
